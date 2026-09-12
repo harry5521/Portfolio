@@ -14,7 +14,7 @@ def custom_500(request):
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/portfolio-admin-047/', admin.site.urls),
     path('', include('landing.urls')),
     
     # Error handlers
