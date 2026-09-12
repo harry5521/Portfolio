@@ -1,0 +1,168 @@
+{% load static %}
+
+<!-- About Section -->
+<section id="about" class="py-20 lg:py-24">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Heading -->
+    <div data-animate>
+      <h2 class="section-heading text-3xl font-semibold text-teal-400 mb-2">About Me</h2>
+    </div>
+
+    <!-- About Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      
+      <!-- Left: About Text -->
+      <div data-animate>
+        <p class="text-slate-300 text-lg leading-relaxed mb-6">
+          I'm a final-year <span class="text-teal-300 font-semibold">Software Engineering</span> student with a 
+          passion for backend development, especially in <span class="text-teal-300 font-semibold">Python</span> 
+          and the <span class="text-teal-300 font-semibold">Django ecosystem</span>.
+        </p>
+
+        <p class="text-slate-300 text-lg leading-relaxed mb-6">
+          My journey began with mastering Python's scripting and OOP capabilities, followed by a strong foundation 
+          in web fundamentals through <span class="text-teal-300 font-semibold">Flask</span> and then advancing to 
+          real-world development with <span class="text-teal-300 font-semibold">Django</span> and 
+          <span class="text-teal-300 font-semibold">Django REST Framework</span>.
+        </p>
+
+        <p class="text-slate-300 text-lg leading-relaxed mb-6">
+          I've worked with <span class="text-teal-300 font-semibold">MySQL</span> and continue to strengthen my 
+          skills in <span class="text-teal-300 font-semibold">PostgreSQL</span> to deepen my database expertise. 
+          On the frontend, I'm familiar with <span class="text-teal-300 font-semibold">HTML</span>, 
+          <span class="text-teal-300 font-semibold">CSS</span>, 
+          <span class="text-teal-300 font-semibold">Tailwind</span>, and 
+          <span class="text-teal-300 font-semibold">JavaScript</span>, 
+          but my core focus remains on <span class="text-teal-300 font-semibold">backend development</span>.
+        </p>
+
+        <p class="text-slate-400 italic text-sm tracking-wide border-l-2 border-teal-400/30 pl-4">
+          Backend-focused. Consistently evolving. Passionate about clean code and scalable systems. 
+          Let's build something meaningful.
+        </p>
+
+        <!-- Education Card -->
+        <div class="mt-10 bg-navy-light rounded-xl p-6 border-l-4 border-teal-400 hover:shadow-lg hover:shadow-teal-400/5 transition-all duration-300">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 rounded-lg bg-navy-dark flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-graduation-cap text-teal-400 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-teal-300 mb-1">Bachelors in Software Engineering</h3>
+              <p class="text-slate-400 text-sm">Sindh Madressatul Islam University (SMIU), Karachi</p>
+              <p class="text-slate-500 text-xs mt-2">
+                <i class="fas fa-calendar-alt mr-1"></i>Expected Graduation: 2026
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Skills Circular Charts -->
+      <div data-animate>
+        <h3 class="text-xl font-semibold text-teal-400 mb-8 flex items-center">
+          <i class="fas fa-code mr-3"></i>Skills & Tech Stack
+        </h3>
+
+        {% if skills %}
+          <div id="skills-section" class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+            {% for skill in skills %}
+            <div class="flex flex-col items-center bg-navy-light rounded-xl p-5 hover:shadow-lg hover:shadow-teal-400/5 hover:-translate-y-1 transition-all duration-300">
+              <!-- Circular Progress -->
+              <svg class="w-24 h-24 mb-3" viewBox="0 0 36 36">
+                <!-- Background Circle -->
+                <path class="text-slate-700/50 stroke-current" 
+                      stroke-width="3" 
+                      fill="none" 
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <!-- Progress Circle -->
+                <path class="progress-path text-teal-400 stroke-current" 
+                      stroke-width="3" 
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-dasharray="0, 100" 
+                      data-percent="{{ skill.percentage }}" 
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <!-- Percentage Text -->
+                <text x="18" y="20.35" class="text-[9px] fill-slate-300 font-semibold" text-anchor="middle">
+                  {{skill.percentage}}%
+                </text>
+              </svg>
+              <!-- Skill Name -->
+              <p class="text-teal-400 font-semibold text-sm text-center">{{ skill.skill_name }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <!-- Empty State -->
+          <div class="bg-navy-light rounded-xl p-10 text-center">
+            <i class="fas fa-chart-pie text-4xl text-slate-600 mb-4"></i>
+            <p class="text-slate-500">No skills added yet</p>
+            <p class="text-slate-600 text-sm mt-2">Add skills via admin panel</p>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+    <!-- Certifications Section -->
+    {% if certifications %}
+    <div class="mt-20" data-animate>
+      <h3 class="text-xl font-semibold text-teal-400 mb-8 flex items-center">
+        <i class="fas fa-certificate mr-3"></i>Certifications
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for cert in certifications %}
+        <div class="bg-navy-light rounded-xl p-6 border border-slate-700/50 hover:border-teal-400/30 hover:shadow-lg hover:shadow-teal-400/5 transition-all duration-300">
+          
+          <!-- Badge Image or Icon -->
+          <div class="flex items-center justify-between mb-4">
+            {% if cert.badge_image %}
+              <img src="{{ cert.badge_image.url }}" alt="{{ cert.name }}" class="w-14 h-14 object-contain">
+            {% else %}
+              <div class="w-14 h-14 rounded-lg bg-navy-dark flex items-center justify-center">
+                <i class="fas fa-award text-teal-400 text-2xl"></i>
+              </div>
+            {% endif %}
+            
+            {% if cert.credential_url %}
+              <a href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer"
+                class="text-xs text-teal-400 hover:text-teal-300 flex items-center transition-colors duration-300">
+                <i class="fas fa-external-link-alt mr-1"></i>Verify
+              </a>
+            {% endif %}
+          </div>
+
+          <!-- Cert Info -->
+          <h4 class="text-teal-300 font-semibold mb-2">{{ cert.name }}</h4>
+          <p class="text-slate-400 text-sm mb-3">{{ cert.issuing_organization }}</p>
+          
+          {% if cert.description %}
+            <p class="text-slate-500 text-sm leading-relaxed">{{ cert.description|truncatewords:30 }}</p>
+          {% endif %}
+
+          <!-- Date -->
+          <div class="mt-4 pt-4 border-t border-slate-700/50 flex items-center justify-between">
+            <span class="text-slate-500 text-xs">
+              <i class="fas fa-calendar-alt mr-1"></i>{{ cert.issue_date|date:"M Y" }}
+            </span>
+            {% if cert.expiration_date %}
+              <span class="text-xs {% if cert.expiration_date|date:"Y-m-d" < "2025-01-01" %}text-red-400{% else %}text-slate-500{% endif %}">
+                Expires: {{ cert.expiration_date|date:"M Y" }}
+              </span>
+            {% else %}
+              <span class="text-green-400/70 text-xs">No Expiry</span>
+            {% endif %}
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>

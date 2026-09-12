@@ -1,0 +1,174 @@
+{% load static %}
+
+<!-- Footer Section -->
+<footer class="bg-navy-light border-t border-slate-700/50 mt-20">
+  
+  <!-- Main Footer Content -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      
+      <!-- Column 1: About & Social -->
+      <div>
+        <h3 class="text-lg font-semibold text-teal-400 mb-4">Connect With Me</h3>
+        <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+          Feel free to reach out for collaborations, opportunities, or just a friendly chat about backend development.
+        </p>
+        
+        <!-- Social Links -->
+        <div class="flex items-center space-x-4">
+          {% if profile.github_url %}
+            <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" 
+               title="GitHub"
+               class="w-10 h-10 rounded-lg bg-navy-dark flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-dark/80 transition-all duration-300">
+              <i class="fab fa-github text-lg"></i>
+            </a>
+          {% endif %}
+          
+          {% if profile.linkedin_url %}
+            <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" 
+               title="LinkedIn"
+               class="w-10 h-10 rounded-lg bg-navy-dark flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-dark/80 transition-all duration-300">
+              <i class="fab fa-linkedin text-lg"></i>
+            </a>
+          {% endif %}
+          
+          {% if profile.email %}
+            <a href="mailto:{{ profile.email }}" 
+               title="Email"
+               class="w-10 h-10 rounded-lg bg-navy-dark flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-dark/80 transition-all duration-300">
+              <i class="fas fa-envelope text-lg"></i>
+            </a>
+          {% endif %}
+          
+          {% if profile.phone1 %}
+            <a href="https://wa.me/{{ profile.phone1|cut:' ' }}" target="_blank" rel="noopener noreferrer" 
+               title="WhatsApp"
+               class="w-10 h-10 rounded-lg bg-navy-dark flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-dark/80 transition-all duration-300">
+              <i class="fab fa-whatsapp text-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold text-teal-400 mb-4">Quick Links</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="#hero" class="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm flex items-center">
+              <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#about" class="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm flex items-center">
+              <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+              About Me
+            </a>
+          </li>
+          <li>
+            <a href="#experience" class="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm flex items-center">
+              <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+              Experience
+            </a>
+          </li>
+          <li>
+            <a href="#projects" class="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm flex items-center">
+              <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm flex items-center">
+              <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div>
+        <h3 class="text-lg font-semibold text-teal-400 mb-4">Contact Info</h3>
+        <ul class="space-y-4">
+          
+          {% if profile.email %}
+          <li class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded bg-navy-dark flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i class="fas fa-envelope text-teal-400 text-sm"></i>
+            </div>
+            <div>
+              <p class="text-slate-500 text-xs mb-1">Email</p>
+              <a href="mailto:{{ profile.email }}" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 text-sm break-all">
+                {{ profile.email }}
+              </a>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if profile.phone1 %}
+          <li class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded bg-navy-dark flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i class="fas fa-phone text-teal-400 text-sm"></i>
+            </div>
+            <div>
+              <p class="text-slate-500 text-xs mb-1">Phone</p>
+              <a href="tel:{{ profile.phone1 }}" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 text-sm">
+                {{ profile.phone1 }}
+              </a>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if profile.phone2 %}
+          <li class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded bg-navy-dark flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i class="fab fa-whatsapp text-teal-400 text-sm"></i>
+            </div>
+            <div>
+              <p class="text-slate-500 text-xs mb-1">WhatsApp</p>
+              <a href="https://wa.me/{{ profile.phone2|cut:' ' }}" target="_blank" class="text-slate-300 hover:text-teal-400 transition-colors duration-300 text-sm">
+                {{ profile.phone2 }}
+              </a>
+            </div>
+          </li>
+          {% endif %}
+
+        </ul>
+
+        {% if profile.resume %}
+        <div class="mt-6">
+          <a href="{{ profile.resume.url }}" target="_blank" 
+             class="btn-primary text-xs inline-flex items-center">
+            <i class="fas fa-download mr-2"></i>Download Resume
+          </a>
+        </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-slate-700/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0">
+        
+        <!-- Copyright -->
+        <p class="text-slate-500 text-sm text-center sm:text-left">
+          &copy; {% now "Y" %} Abu Huraira. All rights reserved.
+        </p>
+        
+        <!-- Built With -->
+        <p class="text-slate-500 text-xs flex items-center">
+          Built with 
+          <i class="fab fa-python text-yellow-400 mx-1"></i> Python &
+          <i class="fab fa-django text-green-400 mx-1"></i> Django
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+</footer>

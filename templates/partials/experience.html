@@ -1,0 +1,159 @@
+{% load static %}
+
+<!-- Experience Section -->
+<section id="experience" class="py-20 lg:py-24 bg-navy-light/30">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Heading -->
+    <div data-animate>
+      <h2 class="section-heading">Work Experience</h2>
+    </div>
+
+    {% if experiences %}
+      <!-- Experience Timeline -->
+      <div class="relative">
+        
+        <!-- Timeline Line (Desktop) -->
+        <div class="hidden md:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-400 via-teal-400/50 to-transparent"></div>
+
+        <!-- Experience Items -->
+        <div class="space-y-12">
+          
+          {% for experience in experiences %}
+          <div class="relative md:pl-24" data-animate>
+            
+            <!-- Timeline Dot (Desktop) -->
+            <div class="hidden md:flex absolute left-6 top-8 w-5 h-5 rounded-full border-4 border-navy-dark bg-teal-400 z-10 
+                        {% if experience.is_current %}ring-4 ring-teal-400/30{% endif %}"></div>
+
+            <!-- Experience Card -->
+            <div class="bg-navy-light rounded-xl border border-slate-700/50 hover:border-teal-400/30 
+                        hover:shadow-xl hover:shadow-teal-400/5 transition-all duration-300 overflow-hidden
+                        {% if experience.is_current %}ring-1 ring-teal-400/20{% endif %}">
+              
+              <!-- Card Header -->
+              <div class="p-6 pb-4 border-b border-slate-700/50">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  
+                  <!-- Left: Company Info -->
+                  <div class="flex items-start space-x-4 flex-1">
+                    <!-- Company Logo -->
+                    <div class="w-14 h-14 rounded-lg bg-navy-dark flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {% if experience.company_logo %}
+                        <img src="{{ experience.company_logo.url }}" alt="{{ experience.company_name }}" 
+                            class="w-full h-full object-cover">
+                      {% else %}
+                        <span class="text-teal-400 font-bold text-lg">{{ experience.company_name.0 }}</span>
+                      {% endif %}
+                    </div>
+                    
+                    <!-- Company Details -->
+                    <div>
+                      <h3 class="text-xl font-semibold text-teal-300">{{ experience.position }}</h3>
+                      <p class="text-slate-300 text-sm mt-1">{{ experience.company_name }}</p>
+                      
+                      <!-- Duration Badge -->
+                      <div class="flex items-center space-x-2 mt-2">
+                        <span class="text-slate-500 text-xs flex items-center">
+                          <i class="fas fa-calendar-alt mr-1"></i>
+                          {{ experience.start_date|date:"M Y" }} - 
+                          {% if experience.is_current %}
+                            <span class="text-green-400 font-medium">Present</span>
+                          {% else %}
+                            {{ experience.end_date|date:"M Y" }}
+                          {% endif %}
+                        </span>
+                        
+                        {% if experience.is_current %}
+                          <span class="px-2 py-0.5 bg-green-400/10 text-green-400 text-xs rounded-full font-medium">
+                            Current
+                          </span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="p-6">
+                
+                <!-- Description -->
+                <div class="mb-6">
+                  <p class="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{{ experience.description }}</p>
+                </div>
+
+                <!-- Technologies Used -->
+                {% if experience.technologies_used.all %}
+                <div class="mb-6">
+                  <h4 class="text-sm font-semibold text-slate-400 mb-3 flex items-center">
+                    <i class="fas fa-tools mr-2 text-teal-400/70"></i>Technologies Used
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {% for tech in experience.technologies_used.all %}
+                      <span class="tech-tag">{{ tech.name }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+
+                <!-- Projects Done at This Company -->
+                {% if experience.projects.all %}
+                <div>
+                  <h4 class="text-sm font-semibold text-slate-400 mb-4 flex items-center">
+                    <i class="fas fa-project-diagram mr-2 text-teal-400/70"></i>
+                    Projects ({{ experience.projects.count }})
+                  </h4>
+                  
+                  <div class="space-y-4">
+                    {% for project in experience.projects.all %}
+                    <div class="bg-navy-dark/50 rounded-lg p-4 border-l-2 border-teal-400/30 hover:border-teal-400 transition-colors duration-300">
+                      <h5 class="text-teal-300 font-medium mb-2 flex items-center">
+                        <i class="fas fa-chevron-right text-xs text-teal-400/50 mr-2"></i>
+                        {{ project.title }}
+                      </h5>
+                      
+                      <p class="text-slate-400 text-sm leading-relaxed whitespace-pre-line ml-6">{{ project.description }}</p>
+                      
+                      {% if project.technologies.all %}
+                      <div class="flex flex-wrap gap-1.5 mt-3 ml-6">
+                        {% for tech in project.technologies.all %}
+                          <span class="text-xs text-teal-400/80 bg-teal-900/20 px-2 py-0.5 rounded">{{ tech.name }}</span>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+
+              </div>
+
+            </div>
+
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+    {% else %}
+      <!-- Empty State -->
+      <div class="text-center py-16" data-animate>
+        <div class="w-24 h-24 rounded-full bg-navy-light flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-briefcase text-4xl text-slate-600"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-400 mb-2">No Experience Added Yet</h3>
+        <p class="text-slate-500">Add your work experience via admin panel</p>
+        <div class="mt-6 flex items-center justify-center space-x-4 text-slate-600 text-sm">
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>Company Info</span>
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>Projects</span>
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>Technologies</span>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>

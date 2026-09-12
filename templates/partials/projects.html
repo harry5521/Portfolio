@@ -1,0 +1,213 @@
+{% load static %}
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 lg:py-24">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Heading -->
+    <div data-animate>
+      <h2 class="section-heading">Featured Projects</h2>
+      <p class="text-slate-400 text-lg mt-4 max-w-2xl">
+        Here are some of my projects that showcase my skills in backend development, API design, and system architecture.
+      </p>
+    </div>
+
+    {% if all_projects %}
+      
+      <!-- Filter Buttons -->
+      {% if technologies %}
+      <div class="mt-10 mb-8" data-animate>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button class="filter-btn active" data-filter="all">
+            <i class="fas fa-th-large mr-2"></i>All
+          </button>
+          {% for tech in technologies %}
+            <button class="filter-btn" data-filter="{{ tech.name }}">
+              {{ tech.name }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+        
+        {% for project in all_projects %}
+        <!-- Project Card -->
+        <div class="project-card bg-navy-light rounded-xl border border-slate-700/50 hover:border-teal-400/30 
+                    card-hover overflow-hidden group
+                    {% if project.is_featured %}ring-1 ring-teal-400/20{% endif %}"
+             data-techs="{% for tech in project.tech_stack.all %}{{ tech.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+          
+          <!-- Project Image -->
+          <div class="relative overflow-hidden">
+            {% if project.image %}
+              <img src="{{ project.image.url }}" alt="{{ project.title }}" 
+                  class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            {% else %}
+              <div class="w-full h-48 bg-navy-dark flex items-center justify-center">
+                <i class="fas fa-image text-4xl text-slate-600"></i>
+              </div>
+            {% endif %}
+            
+            <!-- Overlay on Hover -->
+            <div class="absolute inset-0 bg-navy-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 
+                        flex items-center justify-center space-x-4">
+              {% if project.github_link %}
+                <a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" 
+                  title="View Code"
+                  class="w-12 h-12 rounded-full bg-navy-light/90 flex items-center justify-center text-teal-400 
+                          hover:bg-teal-400 hover:text-navy-dark transition-all duration-300 transform hover:scale-110">
+                  <i class="fab fa-github text-xl"></i>
+                </a>
+              {% endif %}
+              
+              {% if project.live_link %}
+                <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" 
+                  title="Live Demo"
+                  class="w-12 h-12 rounded-full bg-navy-light/90 flex items-center justify-center text-teal-400 
+                          hover:bg-teal-400 hover:text-navy-dark transition-all duration-300 transform hover:scale-110">
+                  <i class="fas fa-external-link-alt text-xl"></i>
+                </a>
+              {% endif %}
+            </div>
+
+            <!-- Featured Badge -->
+            {% if project.is_featured %}
+              <div class="absolute top-3 right-3">
+                <span class="px-3 py-1 bg-teal-400/90 text-navy-dark text-xs font-semibold rounded-full">
+                  <i class="fas fa-star mr-1"></i>Featured
+                </span>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-5">
+            <!-- Title -->
+            <h3 class="text-lg font-semibold text-teal-300 mb-2 group-hover:text-teal-400 transition-colors duration-300">
+              {{ project.title }}
+            </h3>
+            
+            <!-- Short Description -->
+            <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+              {{ project.short_description|truncatewords:25 }}
+            </p>
+
+            <!-- Tech Stack Tags -->
+            {% if project.tech_stack.all %}
+            <div class="flex flex-wrap gap-2 mb-4">
+              {% for tech in project.tech_stack.all %}
+                <span class="tech-tag">{{ tech.name }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Card Footer -->
+            <div class="flex items-center justify-between pt-4 border-t border-slate-700/50">
+              <!-- Links -->
+              <div class="flex items-center space-x-3">
+                {% if project.github_link %}
+                  <a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" 
+                     class="text-slate-400 hover:text-teal-400 transition-colors duration-300" title="GitHub">
+                    <i class="fab fa-github text-lg"></i>
+                  </a>
+                {% endif %}
+                
+                {% if project.live_link %}
+                  <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" 
+                     class="text-slate-400 hover:text-teal-400 transition-colors duration-300" title="Live Demo">
+                    <i class="fas fa-eye text-lg"></i>
+                  </a>
+                {% endif %}
+              </div>
+
+              <!-- More Details Button -->
+              <button onclick="openModal('{{ project.id }}')" 
+                      class="text-xs border border-teal-400/50 text-teal-400 px-4 py-2 rounded-lg 
+                             hover:bg-teal-400 hover:text-navy-dark transition-all duration-300 font-mono">
+                Details
+              </button>
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <!-- All Modals -->
+      {% for project in all_projects %}
+      <div id="modal-{{ project.id }}" class="hidden modal-overlay">
+        <div class="modal-content">
+          <!-- Close Button -->
+          <button onclick="closeModal('{{ project.id }}')" 
+                  class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors duration-300 text-2xl">
+            &times;
+          </button>
+          
+          <!-- Modal Image -->
+          {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" 
+                class="w-full h-48 object-cover rounded-lg mb-6">
+          {% else %}
+            <div class="w-full h-48 bg-navy-dark rounded-lg mb-6 flex items-center justify-center">
+              <i class="fas fa-image text-4xl text-slate-600"></i>
+            </div>
+          {% endif %}
+          
+          <!-- Modal Title -->
+          <h3 class="text-2xl font-semibold text-teal-300 mb-4">{{ project.title }}</h3>
+          
+          <!-- Tech Stack -->
+          {% if project.tech_stack.all %}
+          <div class="flex flex-wrap gap-2 mb-4">
+            {% for tech in project.tech_stack.all %}
+              <span class="tech-tag">{{ tech.name }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          <!-- Detailed Description -->
+          <div class="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{{ project.detailed_description }}</div>
+          
+          <!-- Modal Footer Links -->
+          <div class="flex items-center space-x-4 mt-6 pt-4 border-t border-slate-700/50">
+            {% if project.github_link %}
+              <a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" 
+                 class="btn-primary text-xs">
+                <i class="fab fa-github mr-2"></i>View Code
+              </a>
+            {% endif %}
+            
+            {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" 
+                 class="btn-solid text-xs">
+                <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    {% else %}
+      <!-- Empty State -->
+      <div class="text-center py-16" data-animate>
+        <div class="w-24 h-24 rounded-full bg-navy-light flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-code text-4xl text-slate-600"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-400 mb-2">No Projects Added Yet</h3>
+        <p class="text-slate-500">Add your portfolio projects via admin panel</p>
+        <div class="mt-6 flex items-center justify-center space-x-4 text-slate-600 text-sm">
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>Images</span>
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>GitHub Links</span>
+          <span class="flex items-center"><i class="fas fa-check-circle mr-1"></i>Tech Stack</span>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+

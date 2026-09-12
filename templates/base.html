@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Abu Huraira - Backend Developer Portfolio | Python, Django, DRF">
+    <meta name="keywords" content="Python Developer, Django, Backend Developer, REST API, Software Engineer">
+    <meta name="author" content="Abu Huraira">
+    
+    <!-- Open Graph (Social Sharing) -->
+    <meta property="og:title" content="Abu Huraira - Backend Developer">
+    <meta property="og:description" content="Building reliable, scalable backend systems with Python & Django">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon (add your favicon.ico in static/images/) -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    
+    <!-- Title -->
+    <title>{% block title %}Abu Huraira | Backend Developer{% endblock title %}</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy-dark': '#0a192f',
+                        'navy-light': '#112240',
+                        'navy-lighter': '#1d3461',
+                    },
+                    fontFamily: {
+                        'mono': ['Fira Code', 'monospace'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+
+<body class="bg-navy-dark text-slate-300 font-sans">
+
+    <!-- Navbar -->
+    {% include "partials/navbar.html" %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    {% include "partials/footer.html" %}
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn"
+        class="fixed bottom-8 right-8 bg-teal-500 hover:bg-teal-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hidden z-50 transition-all duration-300 hover:scale-110"
+        aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <!-- JavaScript Files -->
+    {% block scripts %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+    <script src="{% static 'js/filter.js' %}"></script>
+    {% endblock scripts %}
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% load static %}
+
+<!-- Navbar Wrapper -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Logo Section -->
+      <a href="#hero" class="flex items-center space-x-3 group">
+        {% if profile and profile.logo_image %}
+          <img 
+            src="{{ profile.logo_image.url }}" 
+            alt="Abu Huraira" 
+            class="w-12 h-12 rounded-full ring-2 ring-teal-400/50 group-hover:ring-teal-400 transition-all duration-300"
+          >
+        {% else %}
+          <div class="w-12 h-12 rounded-full bg-navy-light flex items-center justify-center ring-2 ring-teal-400/50">
+            <span class="text-teal-400 font-bold text-lg">AH</span>
+          </div>
+        {% endif %}
+        <div class="flex flex-col leading-tight">
+          <span class="text-teal-400 font-bold text-sm tracking-wider">MY</span>
+          <span class="text-teal-400 font-bold text-sm tracking-wider">PORTFOLIO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#hero" class="nav-link text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm font-mono">
+          Home
+        </a>
+        <a href="#about" class="nav-link text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm font-mono">
+          About
+        </a>
+        <a href="#experience" class="nav-link text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm font-mono">
+          Experience
+        </a>
+        <a href="#projects" class="nav-link text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm font-mono">
+          Projects
+        </a>
+        <a href="#contact" class="nav-link text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm font-mono">
+          Contact
+        </a>
+      </div>
+
+      <!-- Right Section: Social + Resume + Mobile Toggle -->
+      <div class="flex items-center space-x-4">
+        
+        <!-- Social Links (Desktop Only) -->
+        <div class="hidden md:flex items-center space-x-3">
+          {% if profile.github_url %}
+            <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" 
+               title="GitHub" 
+               class="text-slate-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fab fa-github text-lg"></i>
+            </a>
+          {% endif %}
+          
+          {% if profile.linkedin_url %}
+            <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" 
+               title="LinkedIn" 
+               class="text-slate-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fab fa-linkedin text-lg"></i>
+            </a>
+          {% endif %}
+
+          {% if profile.resume %}
+            <a href="{{ profile.resume.url }}" target="_blank" 
+               class="btn-primary text-xs px-4 py-2">
+              <i class="fas fa-download mr-2"></i>Resume
+            </a>
+          {% endif %}
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button 
+          id="nav-toggle" 
+          class="md:hidden text-slate-400 hover:text-teal-400 transition-colors duration-300 focus:outline-none p-2"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="menu-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" 
+     class="relative z-50 md:hidden max-h-0 opacity-0 pointer-events-none overflow-hidden transition-all duration-500 ease-in-out bg-navy-dark/98 backdrop-blur-md">
+    <div class="px-4 py-6 space-y-6">
+      
+      <!-- Mobile Nav Links -->
+      <div class="flex flex-col space-y-4">
+        <a href="#hero" class="mobile-nav-link text-slate-300 hover:text-teal-400 transition-colors duration-300 text-lg font-mono py-2">
+          <i class="fas fa-home w-8 text-teal-400/70"></i> Home
+        </a>
+        <a href="#about" class="mobile-nav-link text-slate-300 hover:text-teal-400 transition-colors duration-300 text-lg font-mono py-2">
+          <i class="fas fa-user w-8 text-teal-400/70"></i> About
+        </a>
+        <a href="#experience" class="mobile-nav-link text-slate-300 hover:text-teal-400 transition-colors duration-300 text-lg font-mono py-2">
+          <i class="fas fa-briefcase w-8 text-teal-400/70"></i> Experience
+        </a>
+        <a href="#projects" class="mobile-nav-link text-slate-300 hover:text-teal-400 transition-colors duration-300 text-lg font-mono py-2">
+          <i class="fas fa-code w-8 text-teal-400/70"></i> Projects
+        </a>
+        <a href="#contact" class="mobile-nav-link text-slate-300 hover:text-teal-400 transition-colors duration-300 text-lg font-mono py-2">
+          <i class="fas fa-envelope w-8 text-teal-400/70"></i> Contact
+        </a>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-slate-700/50"></div>
+
+      <!-- Mobile Social Links -->
+      <div class="flex items-center justify-center space-x-6">
+        {% if profile.github_url %}
+          <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" 
+             title="GitHub" 
+             class="text-slate-400 hover:text-teal-400 transition-colors duration-300">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+        {% endif %}
+        
+        {% if profile.linkedin_url %}
+          <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" 
+             title="LinkedIn" 
+             class="text-slate-400 hover:text-teal-400 transition-colors duration-300">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+        {% endif %}
+
+        {% if profile.email %}
+          <a href="mailto:{{ profile.email }}" 
+             title="Email" 
+             class="text-slate-400 hover:text-teal-400 transition-colors duration-300">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile Resume Button -->
+      {% if profile.resume %}
+        <div class="pt-2">
+          <a href="{{ profile.resume.url }}" target="_blank" 
+             class="btn-primary w-full text-center block">
+            <i class="fas fa-download mr-2"></i>Download Resume
+          </a>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</nav>
+
+<!-- Spacer for fixed navbar -->
+<div class="h-20"></div>
